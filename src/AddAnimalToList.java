@@ -8,6 +8,7 @@ import java.util.List;
 public class AddAnimalToList {
 
 
+
     public static void addAnimalToListDogs() {
         String owner;
         String category;
@@ -39,10 +40,12 @@ public class AddAnimalToList {
             if (number==0){
                 System.out.println("młodziutka bestia");
                 dogs.add(new Dogs(owner, category, breed, name, number));
+
                 break;
             }
             if (number>0){
             dogs.add(new Dogs(owner, category, breed, name, number));
+
                 break;
 
             }
