@@ -12,7 +12,7 @@ public class Main extends AddAnimalToList{
             if (Function.isInteger(character)) {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
-                    AddAnimalToList.addAnimalToList();
+                    System.out.println("jedem");
 
                     break;
                 }

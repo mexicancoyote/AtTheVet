@@ -9,20 +9,20 @@ public class AddAnimals {
 
         while (loop2) {
             Function.clearConsole();
-            System.out.println("Wybierz rase: 1. Pies 2. Kot 3. Wyjscie 0.");
+            System.out.println("Wybierz rase: 1. Pies 2. Kot 3.Inne Zwierzatko Wyjscie 0.");
             Scanner in = new Scanner(System.in);
             String character = in.next();
             if (Function.isInteger(character)) {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
                     System.out.println("Wybrałes psa");
-                    AddAnimalToList.addAnimalToList();
+                    AddAnimalToList.addAnimalToListDogs();
                 } else if (number == 2) {
                     System.out.println("Wybrałes kota");
-                    break;
+                    AddAnimalToList.addAnimalToListCats();
                 } else if (number == 3) {
                     System.out.println("Wybrałes inna");
-                    break;
+                    AddAnimalToList.addAnimalToListOther();
 
                 } else if (number == 0){
                     break;
