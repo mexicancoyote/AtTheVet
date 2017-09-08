@@ -1,6 +1,6 @@
 
 
-public class Function {
+public class Functions {
     public static boolean isInteger (String i){
         try {
             Integer.parseInt(i);
