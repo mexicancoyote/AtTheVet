@@ -1,9 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import Animal_Data_Base.*;
 public class Main {
 
-    public static void main(String[] args) {
-        Animals databaseFunction = new Animals();;
+    public static void main(String[] args) throws FileNotFoundException {
+        Animals databaseFunctions = new Animals();;
         boolean loop1 = true;
 
         while (loop1) {
@@ -14,12 +15,12 @@ public class Main {
             if (Function.isInteger(character)) {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
-                    System.out.println("jedem");
+                    databaseFunctions.animalsFromList();
 
                     break;
                 }
                 else if (number == 2) {
-                    databaseFunction.animals();
+                    databaseFunctions.animalsToList();
 
 
                 }
