@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import Animal_Data_Base.*;
-public class Main extends AddAnimalToList{
+public class Main {
+
     public static void main(String[] args) {
+        Animals databaseFunction = new Animals();;
         boolean loop1 = true;
 
         while (loop1) {
@@ -17,7 +19,7 @@ public class Main extends AddAnimalToList{
                     break;
                 }
                 else if (number == 2) {
-                    AddAnimals.addAnimals();
+                    databaseFunction.animals();
 
 
                 }
