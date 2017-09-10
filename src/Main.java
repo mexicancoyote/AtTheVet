@@ -15,7 +15,6 @@ public class Main {
             if (Functions.isInteger(character)) {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
-                    System.out.println("Jeden");
                     newClass.getAnimlasFromList();
                     break;
                 }
@@ -23,6 +22,7 @@ public class Main {
                     newClass.addAnimalToList();
                     newClass.addAnimalToFile();
                     continue;
+
                 }
                 else if (number == 3) {
                     System.out.println("Trzy");
