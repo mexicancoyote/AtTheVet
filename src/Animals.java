@@ -10,21 +10,23 @@ import java.util.Scanner;
 import java.util.LinkedList;
 
 public class Animals {
-    String ownerStr;
-    String breedStr;
-    String nameStr;
-    String ageStr;
-    String howManyScalesStr;
-    int howManyScales = 0;
-    String howManyBarksStr;
-    int howManyBarks=0;
-    String category;
+
     List<Variables> animals = new LinkedList<>();
-    Variables animal;
 
 
 
-    public void addAnimalToList() {
+
+    public void addAnimalToList() throws IOException{
+        Variables animal;
+        String ownerStr;
+        String breedStr;
+        String nameStr;
+        String ageStr;
+        String howManyScalesStr;
+        int howManyScales = 0;
+        String howManyBarksStr;
+        int howManyBarks=0;
+        String category;
 
         int genre = 0;
 
@@ -69,7 +71,6 @@ public class Animals {
             }
             while(!(howManyBarks>0));
             animal = new Dogs(ownerStr, breedStr, nameStr, ageInt, howManyBarks);
-            animals.add(animal);
             System.out.println("Dodałeś nowego psa do bazy pacjentów.\n");
         }
         else if (genre==2) {
@@ -82,80 +83,62 @@ public class Animals {
             }
             while(!(howManyScales>0));
             animal = new Fish(ownerStr, breedStr, nameStr, ageInt, howManyScales);
-            animals.add(animal);
             System.out.println("Dodałeś nową rybkę do bazy pacjentów.\n");
         }
         else{
             System.out.println("Podaj gatunek zwierzęcia: ");
             category = input.next();
             animal = new Others(ownerStr, breedStr, nameStr, ageInt, category);
-            animals.add(animal);
             System.out.println("Dodałeś nowego zwierzaka do bazy pacjentów.\n");
         }
+        animals.add(animal);
+        addAnimalToFile();
 
 
     }
     public void addAnimalToFile()throws IOException{
 
 
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("animalsDataBase", true), "UTF-8"));
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("animalsDataBase", false), "UTF-8"));
         for (Variables animal : animals) {
             if(animal instanceof Dogs) {
-
-                writer.append("Dogs: ");
-                writer.append(howManyBarksStr + " ");
+                Dogs d = (Dogs)animal;
+                writer.write("Dogs: ");
+                writer.write(d.howManyBarks + " ");
             }
             else if(animal instanceof Fish) {
-                writer.append("Fish: ");
-                writer.append(howManyScalesStr + " ");
+                Fish f = (Fish)animal;
+                writer.write("Fish: ");
+                writer.write(f.howManyScales + " ");
             }
             else if(animal instanceof Others) {
-                writer.append("Others ");
-                writer.append(category + " ");
+                Others o = (Others)animal;
+                writer.write("Others ");
+                writer.write(o.category + " ");
             }
-            writer.append(ownerStr+" ");
-            writer.append(breedStr+" ");
-            writer.append(nameStr+" ");
-            writer.append(ageStr+" \n");
-            writer.flush();
-            writer.close();
+            writer.write(animal.owner+" ");
+            writer.write(animal.breed+" ");
+            writer.write(animal.name+" ");
+            writer.write(animal.age +" \n");
+
         }
-    }
-    public String getOwnerStr(){
-        return ownerStr;
-    }
-    public String getBreedStr(){
-        return breedStr;
-    }
-    public String getNameStr(){
-        return nameStr;
-    }
-    public String getAgeStr(){
-        return ageStr;
-    }
-    public String getHowManyBarksStr(){
-
-        return howManyBarksStr;
-    }
-    public String getHowManyScalesStr(){
-        return howManyScalesStr;
-    }
-    public String getCategory(){
-        return category;
+        writer.flush();
+        writer.close();
     }
 
-    public void getAnimlasFromList(){
 
-        System.out.print("Nazwisko: "+ getOwnerStr()+" ");
-        System.out.print("Rasa: "+ getBreedStr()+" ");
-        System.out.print("Imię zwierzęcia: "+ getNameStr()+" ");
-        System.out.print("Wiek zwierzęcia: "+ getAgeStr()+" ");
+    public void getAnimlasFromList(Variables animal){
+
+        System.out.print("Nazwisko: "+ animal.owner+" ");
+        System.out.print("Rasa: "+ animal.breed+" ");
+        System.out.print("Imię zwierzęcia: "+ animal.name+" ");
+        System.out.print("Wiek zwierzęcia: "+ animal.age+" ");
         if (animal instanceof Dogs)
-        System.out.print("Ilość szczeknięć: "+ getHowManyBarksStr()+" ");
+        System.out.print("Ilość szczeknięć: "+ ((Dogs) animal).howManyBarks+" ");
         if (animal instanceof Fish)
-        System.out.print("Ilość łusek: "+ getHowManyScalesStr()+" ");
+        System.out.print("Ilość łusek: "+ ((Fish) animal).howManyScales+" ");
         if (animal instanceof Others)
-        System.out.print("Gatunek: "+ getCategory()+" ");
+        System.out.print("Gatunek: "+ ((Others) animal).category+" ");
     }
 
 
