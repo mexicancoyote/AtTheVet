@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         boolean loop1 = true;
         Animals newClass = new Animals();
 
@@ -16,11 +16,12 @@ public class Main {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
                     System.out.println("Jeden");
-                    newClass.getAnimlas();
+                    newClass.getAnimlasFromList();
                     break;
                 }
                 else if (number == 2) {
-                    newClass.addAnimal();
+                    newClass.addAnimalToList();
+                    newClass.addAnimalToFile();
                     continue;
                 }
                 else if (number == 3) {

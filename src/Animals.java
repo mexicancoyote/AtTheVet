@@ -2,20 +2,31 @@ import Animal_Data_Base.Dogs;
 import Animal_Data_Base.Fish;
 import Animal_Data_Base.Others;
 import Animal_Data_Base.Variables;
+
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Scanner;
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class Animals {
+    String ownerStr;
+    String breedStr;
+    String nameStr;
+    String ageStr;
+    String howManyScalesStr;
+    int howManyScales = 0;
+    String howManyBarksStr;
+    int howManyBarks=0;
+    String category;
     List<Variables> animals = new LinkedList<>();
 
-    public void addAnimal() {
+
+
+    public void addAnimalToList() {
+
         int genre = 0;
+
         Scanner input = new Scanner(System.in);
         boolean loop1 = true;
         do {
@@ -32,14 +43,14 @@ public class Animals {
 
         int ageInt = 0;
         System.out.println("Podaj nazwisko właściciela: ");
-        String ownerStr = input.next();
+        ownerStr = input.next();
         System.out.println("Podaj rasę: ");
-        String breedStr = input.next();
+        breedStr = input.next();
         System.out.println("Podaj imię zwierzaka: ");
-        String nameStr = input.next();
+        nameStr = input.next();
         do{
             System.out.println("Podaj wiek zwierzaka: ");
-            String ageStr = input.next();
+            ageStr = input.next();
             if (Functions.isInteger(ageStr)) {
                 ageInt = Integer.parseInt(ageStr);
             }
@@ -48,9 +59,9 @@ public class Animals {
 
 
         if (genre==1) {
-            int howManyBarks = 0;
+
             do{System.out.println("Ile razy pies szczeka: ");
-                String howManyBarksStr = input.next();
+                howManyBarksStr = input.next();
                 if (Functions.isInteger(howManyBarksStr)) {
                     howManyBarks = Integer.parseInt(howManyBarksStr);
                 }
@@ -61,11 +72,11 @@ public class Animals {
             System.out.println("Dodałeś nowego psa do bazy pacjentów.\n");
         }
         else if (genre==2) {
-            int howManyScales = 0;
+
             do{System.out.println("Ile łusek ma rybka: ");
-                String howManyScale = input.next();
-                if (Functions.isInteger(howManyScale)) {
-                    howManyScales = Integer.parseInt(howManyScale);
+                howManyScalesStr = input.next();
+                if (Functions.isInteger(howManyScalesStr)) {
+                    howManyScales = Integer.parseInt(howManyScalesStr);
                 }
             }
             while(!(howManyScales>0));
@@ -75,7 +86,7 @@ public class Animals {
         }
         else{
             System.out.println("Podaj gatunek zwierzęcia: ");
-            String category = input.next();
+            category = input.next();
             Variables animal = new Others(ownerStr, breedStr, nameStr, ageInt, category);
             animals.add(animal);
             System.out.println("Dodałeś nowego zwierzaka do bazy pacjentów.\n");
@@ -83,7 +94,33 @@ public class Animals {
 
 
     }
-    public void getAnimlas(){
+    public void addAnimalToFile()throws IOException{
+
+
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("animalsDataBase", true), "UTF-8"));
+        for (Variables animal : animals) {
+            if(animal instanceof Dogs) {
+
+                writer.append("Dogs: ");
+                writer.append(howManyBarksStr + " ");
+            }
+            else if(animal instanceof Fish) {
+                writer.append("Fish: ");
+                writer.append(howManyScalesStr + " ");
+            }
+            else if(animal instanceof Others) {
+                writer.append("Others ");
+                writer.append(category + " ");
+            }
+            writer.append(ownerStr+" ");
+            writer.append(breedStr+" ");
+            writer.append(nameStr+" ");
+            writer.append(ageStr+" \n");
+            writer.close();
+        }
+    }
+
+    public void getAnimlasFromList(){
         System.out.println("Pacjent 0 to: "+ animals.get(0));
     }
 
