@@ -13,9 +13,6 @@ public class Animals {
 
     List<Variables> animals = new LinkedList<>();
 
-
-
-
     public void addAnimalToList() throws IOException{
         Variables animal;
         String ownerStr;
@@ -134,14 +131,17 @@ public class Animals {
         System.out.print("Imię zwierzęcia: "+ animal.name+" ");
         System.out.print("Wiek zwierzęcia: "+ animal.age+" ");
         if (animal instanceof Dogs)
-        System.out.print("Ilość szczeknięć: "+ ((Dogs) animal).howManyBarks+" ");
+        System.out.print("Ilość szczeknięć: "+ ((Dogs) animal).howManyBarks+"\n");
         if (animal instanceof Fish)
-        System.out.print("Ilość łusek: "+ ((Fish) animal).howManyScales+" ");
+        System.out.print("Ilość łusek: "+ ((Fish) animal).howManyScales+"\n");
         if (animal instanceof Others)
-        System.out.print("Gatunek: "+ ((Others) animal).category+" ");
+        System.out.print("Gatunek: "+ ((Others) animal).category+"\n");
     }
 
+    public void getAnimalsFromFile (){
+        
 
+    }
 }
 
 
