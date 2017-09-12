@@ -10,27 +10,28 @@ import java.util.Scanner;
 import java.util.LinkedList;
 
 public class Animals {
+    Variables animal;
+    String ownerStr;
+    String breedStr;
+    String nameStr;
+    String ageStr;
+    String howManyScalesStr;
+    int howManyScales = 0;
+    String howManyBarksStr;
+    int howManyBarks = 0;
+    String category;
 
     List<Variables> animals = new LinkedList<>();
 
-    public void addAnimalToList() throws IOException{
-        Variables animal;
-        String ownerStr;
-        String breedStr;
-        String nameStr;
-        String ageStr;
-        String howManyScalesStr;
-        int howManyScales = 0;
-        String howManyBarksStr;
-        int howManyBarks=0;
-        String category;
+    public void addAnimalToList() throws IOException {
+
 
         int genre = 0;
 
         Scanner input = new Scanner(System.in);
         boolean loop1 = true;
         do {
-            System.out.println("Dodaj pacjenta:\n1.Psa.\n2.Rybkę.\n3.Inne.\n0.Anuluj.");
+            System.out.println("Dodaj pacjenta:\n1.Psa.\n2.Rybkę.\n3.Inne.\n4.Wyjscie.");
             String userInput = input.next();
             if (Functions.isInteger(userInput)) {
                 genre = Integer.parseInt(userInput);
@@ -48,41 +49,41 @@ public class Animals {
         breedStr = input.next();
         System.out.println("Podaj imię zwierzaka: ");
         nameStr = input.next();
-        do{
+        do {
             System.out.println("Podaj wiek zwierzaka: ");
             ageStr = input.next();
             if (Functions.isInteger(ageStr)) {
                 ageInt = Integer.parseInt(ageStr);
             }
         }
-        while(!(ageInt>0));
+        while (!(ageInt > 0));
 
 
-        if (genre==1) {
+        if (genre == 1) {
 
-            do{System.out.println("Ile razy pies szczeka: ");
+            do {
+                System.out.println("Ile razy pies szczeka: ");
                 howManyBarksStr = input.next();
                 if (Functions.isInteger(howManyBarksStr)) {
                     howManyBarks = Integer.parseInt(howManyBarksStr);
                 }
             }
-            while(!(howManyBarks>0));
-            animal = new Dogs(ownerStr, breedStr, nameStr, ageInt, howManyBarks);
+            while (!(howManyBarks > 0));
+            animal = new Dogs(howManyBarks, ownerStr, breedStr, nameStr, ageInt );
             System.out.println("Dodałeś nowego psa do bazy pacjentów.\n");
-        }
-        else if (genre==2) {
+        } else if (genre == 2) {
 
-            do{System.out.println("Ile łusek ma rybka: ");
+            do {
+                System.out.println("Ile łusek ma rybka: ");
                 howManyScalesStr = input.next();
                 if (Functions.isInteger(howManyScalesStr)) {
                     howManyScales = Integer.parseInt(howManyScalesStr);
                 }
             }
-            while(!(howManyScales>0));
+            while (!(howManyScales > 0));
             animal = new Fish(ownerStr, breedStr, nameStr, ageInt, howManyScales);
             System.out.println("Dodałeś nową rybkę do bazy pacjentów.\n");
-        }
-        else{
+        } else {
             System.out.println("Podaj gatunek zwierzęcia: ");
             category = input.next();
             animal = new Others(ownerStr, breedStr, nameStr, ageInt, category);
@@ -93,30 +94,29 @@ public class Animals {
 
 
     }
-    public void addAnimalToFile()throws IOException{
+
+    public void addAnimalToFile() throws IOException {
 
 
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("animalsDataBase", false), "UTF-8"));
         for (Variables animal : animals) {
-            if(animal instanceof Dogs) {
-                Dogs d = (Dogs)animal;
-                writer.write("Dogs: ");
-                writer.write(d.howManyBarks + " ");
+            if (animal instanceof Dogs) {
+                Dogs d = (Dogs) animal;
+                writer.write("Dogs:" + "\n");
+                writer.write(d.howManyBarks + "\n");
+            } else if (animal instanceof Fish) {
+                Fish f = (Fish) animal;
+                writer.write("Fish:" + "\n");
+                writer.write(f.howManyScales + "\n");
+            } else if (animal instanceof Others) {
+                Others o = (Others) animal;
+                writer.write("Others:" + "\n");
+                writer.write(o.category + "\n");
             }
-            else if(animal instanceof Fish) {
-                Fish f = (Fish)animal;
-                writer.write("Fish: ");
-                writer.write(f.howManyScales + " ");
-            }
-            else if(animal instanceof Others) {
-                Others o = (Others)animal;
-                writer.write("Others ");
-                writer.write(o.category + " ");
-            }
-            writer.write(animal.owner+" ");
-            writer.write(animal.breed+" ");
-            writer.write(animal.name+" ");
-            writer.write(animal.age +" \n");
+            writer.write(animal.owner + "\n");
+            writer.write(animal.breed + "\n");
+            writer.write(animal.name + "\n");
+            writer.write(animal.age + "\n");
 
         }
         writer.flush();
@@ -124,26 +124,52 @@ public class Animals {
     }
 
 
-    public void getAnimlasFromList(Variables animal){
+    public void getAnimlasFromList(Variables animal) {
 
-        System.out.print("Nazwisko: "+ animal.owner+" ");
-        System.out.print("Rasa: "+ animal.breed+" ");
-        System.out.print("Imię zwierzęcia: "+ animal.name+" ");
-        System.out.print("Wiek zwierzęcia: "+ animal.age+" ");
+        System.out.print("Nazwisko: " + animal.owner + " ");
+        System.out.print("Rasa: " + animal.breed + " ");
+        System.out.print("Imię zwierzęcia: " + animal.name + " ");
+        System.out.print("Wiek zwierzęcia: " + animal.age + " ");
         if (animal instanceof Dogs)
-        System.out.print("Ilość szczeknięć: "+ ((Dogs) animal).howManyBarks+"\n");
+            System.out.print("Ilość szczeknięć: " + ((Dogs) animal).howManyBarks + "\n");
         if (animal instanceof Fish)
-        System.out.print("Ilość łusek: "+ ((Fish) animal).howManyScales+"\n");
+            System.out.print("Ilość łusek: " + ((Fish) animal).howManyScales + "\n");
         if (animal instanceof Others)
-        System.out.print("Gatunek: "+ ((Others) animal).category+"\n");
+            System.out.print("Gatunek: " + ((Others) animal).category + "\n");
     }
 
-    public void getAnimalsFromFile (){
-        
+    public void getAnimalsFromFileToList() throws IOException {
+        Scanner read = new Scanner(new File("animalsDataBase"));
+        String content;
 
+        while (read.hasNext()) {
+            content = read.nextLine();
+            if ("Dogs:".equals(content)) {
+                //howManyBarks=Integer.parseInt(read.next());
+                howManyBarks=Integer.parseInt(read.next());
+                ownerStr=read.nextLine();
+                breedStr=read.nextLine();
+                nameStr=read.nextLine();
+                int ageInt;
+                ageInt=Integer.parseInt(read.next());
+                animal = new Dogs(howManyBarks, ownerStr, breedStr, nameStr, ageInt );
+                animals.add(animal);
+
+
+                System.out.println("dogg");
+            }
+            else if ("Fish:".equals(content)){
+                System.out.println("yeee");
+            }
+            else if ("Others:".equals(content)){
+                System.out.println("others");
+            }
+
+
+
+        }
     }
 }
-
 
 
 

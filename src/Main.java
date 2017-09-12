@@ -10,35 +10,12 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        boolean loop0 = true;
-        Animals newClass = new Animals();
-        Loops l = new Loops();
 
-        while(loop0) {
-            System.out.println("Witaj w Klinice.\nWybierz jedną z interesujacych Cię opcji:\n1.Lista zwierząt.\n2.Dodaj pacjenta.\n3.Wyjście.");
-            Scanner in = new Scanner(System.in);
-            String character = in.next();
-            if (Functions.isInteger(character)) {
-                int number = Integer.parseInt(character);
-                if (number == 1) {
-                    l.loop1();
-                }
+        Loops mainLoops = new Loops();
 
-                else if (number == 2) {
-                        newClass.addAnimalToList();
-                        newClass.addAnimalToFile();
-                        continue;
-
-                    } else if (number == 3) {
-                        System.out.println("Trzy");
-                        loop0 = false;
-                    } else {
-                        continue;
-                    }
+        mainLoops.mainloop();
 
 
-            }
-        }
     }
 }
 
