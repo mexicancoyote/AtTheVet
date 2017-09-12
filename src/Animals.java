@@ -81,7 +81,7 @@ public class Animals {
                 }
             }
             while (!(howManyScales > 0));
-            animal = new Fish(ownerStr, breedStr, nameStr, ageInt, howManyScales);
+            animal = new Fish(howManyScales, ownerStr, breedStr, nameStr, ageInt);
             System.out.println("Dodałeś nową rybkę do bazy pacjentów.\n");
         } else {
             System.out.println("Podaj gatunek zwierzęcia: ");
@@ -144,29 +144,25 @@ public class Animals {
 
         while (read.hasNext()) {
             content = read.nextLine();
+            int ageInt;
+            System.out.println("W bazie znajduje sie aktualnie ");
             if ("Dogs:".equals(content)) {
-                //howManyBarks=Integer.parseInt(read.next());
-                howManyBarks=Integer.parseInt(read.next());
-                ownerStr=read.nextLine();
-                breedStr=read.nextLine();
-                nameStr=read.nextLine();
-                int ageInt;
-                ageInt=Integer.parseInt(read.next());
-                animal = new Dogs(howManyBarks, ownerStr, breedStr, nameStr, ageInt );
-                animals.add(animal);
-
-
-                System.out.println("dogg");
+                howManyBarks=Integer.parseInt(read.nextLine());
+                animal = new Dogs();
             }
             else if ("Fish:".equals(content)){
-                System.out.println("yeee");
+                howManyScales=Integer.parseInt(read.nextLine());
+                animal = new Fish();
             }
             else if ("Others:".equals(content)){
-                System.out.println("others");
+                category=read.nextLine();
+                animal = new Others();
             }
-
-
-
+            animal.owner=read.nextLine();
+            animal.breed=read.nextLine();
+            animal.name=read.nextLine();
+            animal.age=Integer.parseInt(read.nextLine());
+            animals.add(animal);
         }
     }
 }
