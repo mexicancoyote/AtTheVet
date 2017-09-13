@@ -2,14 +2,11 @@ import Animal_Data_Base.Dogs;
 import Animal_Data_Base.Fish;
 import Animal_Data_Base.Others;
 import Animal_Data_Base.Variables;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Loops {
-
-
     Scanner in = new Scanner(System.in);
     String character;
     int number;
@@ -18,7 +15,6 @@ public class Loops {
         newClass.getAnimalsFromFileToList();
     }
     public void mainLoop ()throws IOException{
-
         while(true) {
             System.out.println("Witaj w Klinice.\nWybierz jedną z interesujacych Cię opcji:\n1.Lista zwierząt.\n2.Dodaj pacjenta.\n3.Wyjście.");
             Scanner in = new Scanner(System.in);
@@ -28,27 +24,22 @@ public class Loops {
                 if (number == 1) {
                     loop1();
                 }
-
                 else if (number == 2) {
                     newClass.addAnimalToList();
                     newClass.addAnimalToFile();
                     continue;
-
-                } else if (number == 3) {
+                }
+                else if (number == 3) {
                     System.out.println("Dziękujemy za skorzystanie z programu AtTheVet");
                     break;
-                } else {
-                    continue;
                 }
-
-
             }
         }
     }
 
     public void loop1 ()throws IOException{
         while (true) {
-            System.out.println("1. Wyświetl liste\n2. Wyszukaj z listy\n3. Edytuj liste\n4. Wyjscie");
+            System.out.println("1. Wyświetl listę.\n2. Zarządzaj listą pacjentów.\n3. Wyjscie.");
             character = in.next();
             if (Functions.isInteger(character)) {
                 number = Integer.parseInt(character);
@@ -57,14 +48,10 @@ public class Loops {
                 }
                 else if (number == 2) {
                     searchFromList();
-                } else if (number == 3) {
-                    break;
-                } else if (number == 4) {
-                    break;
-                } else {
-                    continue;
                 }
-
+                else if (number == 3) {
+                    break;
+                }
             }
         }
     }
@@ -80,7 +67,8 @@ public class Loops {
                         newClass.getAnimlasFromList(newClass.animals.get(i));
                         continue;
                     }
-                } else if (number == 2) {
+                }
+                else if (number == 2) {
                     for (Variables animal : newClass.animals) {
                         if (animal instanceof Dogs)
                             newClass.getAnimlasFromList(animal);
@@ -93,24 +81,24 @@ public class Loops {
                             newClass.getAnimlasFromList(animal);
                         continue;
                     }
-                } else if (number == 4) {
+                }
+                else if (number == 4) {
                     for (Variables animal : newClass.animals){
                         if (animal instanceof Others)
                             newClass.getAnimlasFromList(animal);
                         continue;
                     }
-                } else if (number == 5) {
+                }
+                else if (number == 5) {
 
                     break;
-                } else {
-                    continue;
                 }
             }
         }
     }
     public void searchFromList ()throws IOException{
         Scanner search = new Scanner(System.in);
-        System.out.println("Podaj nazwisko właściciela:");
+        System.out.println("Wyszukaj zwierzaka.\n\nPodaj nazwisko właściciela:");
         String userInput = search.nextLine();
         System.out.println("Podaj imię zwierzaka:");
         String userInput2 = search.nextLine();
@@ -127,14 +115,13 @@ public class Loops {
                     System.out.println("Gatunek: "+((Others) animal).category+"\n");
                 }
             }
-
-
-
-
         }
+    }
+    public void editList (){
 
     }
+    public void deleteList (){
 
-
+    }
 }
 
