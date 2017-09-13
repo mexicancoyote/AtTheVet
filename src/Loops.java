@@ -3,6 +3,7 @@ import Animal_Data_Base.Fish;
 import Animal_Data_Base.Others;
 import Animal_Data_Base.Variables;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -13,8 +14,11 @@ public class Loops {
     String character;
     int number;
     Animals newClass = new Animals();
-    public void mainloop ()throws IOException{
+    public void beforeLoop () throws IOException{
         newClass.getAnimalsFromFileToList();
+    }
+    public void mainLoop ()throws IOException{
+
         while(true) {
             System.out.println("Witaj w Klinice.\nWybierz jedną z interesujacych Cię opcji:\n1.Lista zwierząt.\n2.Dodaj pacjenta.\n3.Wyjście.");
             Scanner in = new Scanner(System.in);
@@ -31,7 +35,7 @@ public class Loops {
                     continue;
 
                 } else if (number == 3) {
-                    System.out.println("Wybraleś wyjscie");
+                    System.out.println("Dziękujemy za skorzystanie z programu AtTheVet");
                     break;
                 } else {
                     continue;
@@ -52,7 +56,7 @@ public class Loops {
                     loop2();
                 }
                 else if (number == 2) {
-                    break;
+                    searchFromList();
                 } else if (number == 3) {
                     break;
                 } else if (number == 4) {
@@ -104,4 +108,33 @@ public class Loops {
             }
         }
     }
+    public void searchFromList ()throws IOException{
+        Scanner search = new Scanner(System.in);
+        System.out.println("Podaj nazwisko właściciela:");
+        String userInput = search.nextLine();
+        System.out.println("Podaj imię zwierzaka:");
+        String userInput2 = search.nextLine();
+       for (Variables animal : newClass.animals) {
+            if(animal.owner.equalsIgnoreCase(userInput) || animal.name.equalsIgnoreCase(userInput2)) {
+                System.out.println("\nNazwisko właściciela: "+animal.owner +"\nImię zwierzaka: "+animal.name+"\nRasa: "+animal.breed+"\nWiek: "+animal.age);
+                if (animal instanceof Dogs) {
+                    System.out.println("Ilość szczeknięć na minutę: "+((Dogs) animal).howManyBarks+"\n");
+                }
+                if (animal instanceof Fish) {
+                    System.out.println("Ilość łusek na cm2: "+((Fish) animal).howManyScales+"\n");
+                }
+                if (animal instanceof Others){
+                    System.out.println("Gatunek: "+((Others) animal).category+"\n");
+                }
+            }
+
+
+
+
+        }
+
+    }
+
+
 }
+

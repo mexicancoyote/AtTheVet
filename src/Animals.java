@@ -24,12 +24,10 @@ public class Animals {
     List<Variables> animals = new LinkedList<>();
 
     public void addAnimalToList() throws IOException {
-
-
+        Loops loopsObject = new Loops();
         int genre = 0;
-
         Scanner input = new Scanner(System.in);
-        boolean loop1 = true;
+
         do {
             System.out.println("Dodaj pacjenta:\n1.Psa.\n2.Rybkę.\n3.Inne.\n4.Wyjscie.");
             String userInput = input.next();
@@ -40,7 +38,10 @@ public class Animals {
                 }
             }
         }
-        while (genre != 1 && genre != 2 && genre != 3);
+        while (genre != 1 && genre != 2 && genre != 3 && genre !=4);
+        if (genre == 4){
+            loopsObject.mainLoop();
+        }
 
         int ageInt = 0;
         System.out.println("Podaj nazwisko właściciela: ");
@@ -62,7 +63,7 @@ public class Animals {
         if (genre == 1) {
 
             do {
-                System.out.println("Ile razy pies szczeka: ");
+                System.out.println("Ile razy pies szczeka na minutę ?");
                 howManyBarksStr = input.next();
                 if (Functions.isInteger(howManyBarksStr)) {
                     howManyBarks = Integer.parseInt(howManyBarksStr);
@@ -74,7 +75,7 @@ public class Animals {
         } else if (genre == 2) {
 
             do {
-                System.out.println("Ile łusek ma rybka: ");
+                System.out.println("Ile łusek ma rybka na cm2 ?");
                 howManyScalesStr = input.next();
                 if (Functions.isInteger(howManyScalesStr)) {
                     howManyScales = Integer.parseInt(howManyScalesStr);
@@ -83,12 +84,13 @@ public class Animals {
             while (!(howManyScales > 0));
             animal = new Fish(howManyScales, ownerStr, breedStr, nameStr, ageInt);
             System.out.println("Dodałeś nową rybkę do bazy pacjentów.\n");
-        } else {
+        } else if (genre == 3){
             System.out.println("Podaj gatunek zwierzęcia: ");
             category = input.next();
             animal = new Others(ownerStr, breedStr, nameStr, ageInt, category);
             System.out.println("Dodałeś nowego zwierzaka do bazy pacjentów.\n");
         }
+
         animals.add(animal);
         addAnimalToFile();
 
@@ -131,9 +133,9 @@ public class Animals {
         System.out.print("Imię zwierzęcia: " + animal.name + " ");
         System.out.print("Wiek zwierzęcia: " + animal.age + " ");
         if (animal instanceof Dogs)
-            System.out.print("Ilość szczeknięć: " + ((Dogs) animal).howManyBarks + "\n");
+            System.out.print("Ilość szczeknięć na minutę: " + ((Dogs) animal).howManyBarks + "\n");
         if (animal instanceof Fish)
-            System.out.print("Ilość łusek: " + ((Fish) animal).howManyScales + "\n");
+            System.out.print("Ilość łusek na cm2: " + ((Fish) animal).howManyScales + "\n");
         if (animal instanceof Others)
             System.out.print("Gatunek: " + ((Others) animal).category + "\n");
     }
@@ -144,26 +146,25 @@ public class Animals {
 
         while (read.hasNext()) {
             content = read.nextLine();
-            int ageInt;
-            System.out.println("W bazie znajduje sie aktualnie ");
+
             if ("Dogs:".equals(content)) {
-                howManyBarks=Integer.parseInt(read.nextLine());
-                animal = new Dogs();
+                animal = new Dogs(Integer.parseInt(read.nextLine()));
             }
             else if ("Fish:".equals(content)){
-                howManyScales=Integer.parseInt(read.nextLine());
-                animal = new Fish();
+                animal = new Fish(Integer.parseInt(read.nextLine()));
             }
             else if ("Others:".equals(content)){
-                category=read.nextLine();
-                animal = new Others();
+                animal = new Others(read.nextLine());
+
             }
             animal.owner=read.nextLine();
             animal.breed=read.nextLine();
             animal.name=read.nextLine();
             animal.age=Integer.parseInt(read.nextLine());
             animals.add(animal);
+
         }
+        System.out.println("Pomyślnie wczytano "+animals.size()+" pacjentów z pliku.\n");
     }
 }
 
