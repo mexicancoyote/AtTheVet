@@ -103,10 +103,11 @@ public class Loops {
         String userInput = in.nextLine();
         System.out.println("Podaj imię zwierzaka:");
         String userInput2 = in.nextLine();
+        boolean found = false;
         for(Variables animal : newClass.animals) {
             int index = newClass.animals.indexOf(animal);
             if (animal.owner.equalsIgnoreCase(userInput) || animal.name.equalsIgnoreCase(userInput2)) {
-
+                found = true;
                 System.out.println("\nNazwisko właściciela: " + animal.owner + "\nImię zwierzaka: " + animal.name + "\nRasa: " + animal.breed + "\nWiek: " + animal.age);
                 if (animal instanceof Dogs) {
                     System.out.println("Ilość szczeknięć na minutę: " + ((Dogs) animal).howManyBarks + "\n");
@@ -132,36 +133,35 @@ public class Loops {
                     return;
                 }
             }
-        }
-        if (!animal.owner.equalsIgnoreCase(userInput) && !animal.name.equalsIgnoreCase(userInput2)){
-            System.out.println("Podane wartości nie pasują do listy\n");
 
         }
+    }
+    if (!found){
+        System.out.println("Podane wartości nie pasują do listy.");
     }
     }
 
 
-    public void editList(Variables animals)throws IOException{
+    public void editList(Variables animal)throws IOException{
         Scanner edit = new Scanner(System.in);
         int number;
-        for(Variables animal : newClass.animals) {
         System.out.println("Wpisz nową wartość lub wciśnij enter, by przejść dalej.\n");
         System.out.println("Zmień nazwisko właściciela:");
         String userInput = edit.nextLine();
         if (!(userInput.equals(""))){
-            animals.owner=userInput;
+            animal.owner=userInput;
             System.out.println("Zedytowano pomyślnie");
         }
         System.out.println("Zmień rasę zwierzaka:");
          userInput = edit.nextLine();
         if (!(userInput.equals(""))){
-            animals.breed = userInput;
+            animal.breed = userInput;
             System.out.println("Zedytowano pomyślnie");
         }
         System.out.println("Zmień imię zwierzaka:");
         userInput = edit.nextLine();
         if (!(userInput.equals(""))){
-            animals.name = userInput;
+            animal.name = userInput;
             System.out.println("Zedytowano pomyślnie");
         }
         System.out.println("Zmień wiek zwierzaka:");
@@ -175,28 +175,65 @@ public class Loops {
                     continue;
                 }
                 if (number >= 0) {
-                    animals.age = number;
+                    animal.age = number;
                     System.out.println("Zedytowano pomyślnie");
                     break;
                 }
             }
         }
         }
-
-            if (animal instanceof Dogs){
-                System.out.println("pieseł");
+        if (animal instanceof Dogs){
+            System.out.println("Zmień liczbę szczeknięć:");
+            userInput = edit.nextLine();
+            if (!(userInput.equals(""))) {
+                while (true) {
+                    if (Functions.isInteger(userInput)) {
+                        number = Integer.parseInt(userInput);
+                        if (number < 0) {
+                            System.out.println("Podaj dodatnią wartość.");
+                            continue;
+                        }
+                        if (number >= 0) {
+                            ((Dogs) animal).howManyBarks = number;
+                            System.out.println("Zedytowano pomyślnie");
+                            break;
+                        }
+                    }
+                }
             }
-            if (animal instanceof Fish){
-                System.out.println("rybcia");
+        }
+        if (animal instanceof Fish){
+            System.out.println("Zmień liczbę łusek:");
+            userInput = edit.nextLine();
+            if (!(userInput.equals(""))) {
+                while (true) {
+                    if (Functions.isInteger(userInput)) {
+                        number = Integer.parseInt(userInput);
+                        if (number < 0) {
+                            System.out.println("Podaj dodatnią wartość.");
+                            continue;
+                        }
+                        if (number >= 0) {
+                            ((Fish) animal).howManyScales = number;
+                            System.out.println("Zedytowano pomyślnie");
+                            break;
+                        }
+                    }
+                }
             }
-            else {
-                System.out.println("kupa");
+        }
+        if (animal instanceof Others){
+            System.out.println("Zmień gatunek:");
+            userInput = edit.nextLine();
+            if (!(userInput.equals(""))){
+                ((Others) animal).category=userInput;
+                System.out.println("Zedytowano pomyślnie");
             }
-
-
-
+        }
+        newClass.addAnimalToFile();
+        return;
     }
-    }
+
 
     public void deleteList (int index)throws IOException{
         System.out.println("Czy napewno chcesz usunąć?(Tak/Nie)");
