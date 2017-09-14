@@ -14,8 +14,6 @@ public class Main {
         Loops mainLoops = new Loops();
         mainLoops.beforeLoop();
         mainLoops.mainLoop();
-
-
     }
 }
 
