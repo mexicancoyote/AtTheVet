@@ -17,8 +17,7 @@ public class Loops {
     public void mainLoop ()throws IOException{
         while(true) {
             System.out.println("Witaj w Klinice.\nWybierz jedną z interesujacych Cię opcji:\n1.Lista zwierząt.\n2.Dodaj pacjenta.\n3.Wyjście.");
-            Scanner in = new Scanner(System.in);
-            String character = in.next();
+            character = in.next();
             if (Functions.isInteger(character)) {
                 int number = Integer.parseInt(character);
                 if (number == 1) {
@@ -39,7 +38,7 @@ public class Loops {
 
     public void loop1 ()throws IOException{
         while (true) {
-            System.out.println("1. Wyświetl listę.\n2. Zarządzaj listą pacjentów.\n3. Wyjscie.");
+            System.out.println("1. Wyświetl listę.\n2. Zarządzaj listą.\n3. Wyjscie.");
             character = in.next();
             if (Functions.isInteger(character)) {
                 number = Integer.parseInt(character);
@@ -50,7 +49,7 @@ public class Loops {
                     searchFromList();
                 }
                 else if (number == 3) {
-                    break;
+                   mainLoop();
                 }
             }
         }
@@ -102,8 +101,10 @@ public class Loops {
         String userInput = search.nextLine();
         System.out.println("Podaj imię zwierzaka:");
         String userInput2 = search.nextLine();
+        int index= 0;
        for (Variables animal : newClass.animals) {
             if(animal.owner.equalsIgnoreCase(userInput) || animal.name.equalsIgnoreCase(userInput2)) {
+                index = newClass.animals.indexOf(animal);
                 System.out.println("\nNazwisko właściciela: "+animal.owner +"\nImię zwierzaka: "+animal.name+"\nRasa: "+animal.breed+"\nWiek: "+animal.age);
                 if (animal instanceof Dogs) {
                     System.out.println("Ilość szczeknięć na minutę: "+((Dogs) animal).howManyBarks+"\n");
@@ -114,13 +115,44 @@ public class Loops {
                 if (animal instanceof Others){
                     System.out.println("Gatunek: "+((Others) animal).category+"\n");
                 }
+
+
+
+        System.out.println("Co dalej chcesz zrobić z elementem listy ?"+"\n\n"+"1.Usuń element.\n2.Edytuj element.\n3.Wyjscie.");
+        character = in.next();
+        if (Functions.isInteger(character)) {
+        number = Integer.parseInt(character);
+            if(number==1){
+                System.out.println("Czy napewno chcesz usunąć "+ userInput2+"?");
+                userInput = in.next();
+                if (userInput.equalsIgnoreCase("tak")) {
+                    newClass.animals.remove(index);
+                    newClass.addAnimalToFile();
+                    System.out.println("Element został usunięty.");
+                }
+                else {
+                    System.out.println("Nie wprowadzono żadnych zmian.");
+                    loop1();
+                }
+            }
+            if(number==2){
+               // animal.owner
+                //newClass.animals.set(index, );
+            }
+            if(number==3){
+                mainLoop();
             }
         }
+        }
+        }
     }
+
+
     public void editList (){
 
     }
     public void deleteList (){
+
 
     }
 }
