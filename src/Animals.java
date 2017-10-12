@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.LinkedList;
 
-public class Animals {
+public class  Animals {
     Variables animal;
     String ownerStr;
     String breedStr;
@@ -30,7 +30,7 @@ public class Animals {
 
         do {
             System.out.println("Dodaj pacjenta:\n1.Psa.\n2.Rybkę.\n3.Inne.\n4.Wyjscie.");
-            String userInput = input.next();
+            String userInput = input.next ();
             if (Functions.isInteger(userInput)) {
                 genre = Integer.parseInt(userInput);
                 if (genre == 0) {

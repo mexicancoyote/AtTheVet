@@ -1,6 +1,6 @@
 package Animal_Data_Base;
 
-public class Variables {
+public abstract class Variables {
     public String owner;
     public String breed;
     public String name;
